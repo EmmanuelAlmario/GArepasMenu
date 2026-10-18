@@ -1,0 +1,25 @@
+server {
+    listen ${PORT};
+    server_name _;
+
+    root /usr/share/nginx/html;
+    index index.html;
+
+    # Healthcheck para Railway.
+    location = /healthz {
+        access_log off;
+        return 200 "ok";
+    }
+
+    # Estaticos con cache larga (Vite les pone hash en el nombre).
+    location ~* \.(js|css|svg|png|jpg|jpeg|webp|woff2?)$ {
+        expires 7d;
+        add_header Cache-Control "public, max-age=604800";
+        try_files $uri =404;
+    }
+
+    # SPA: cualquier ruta cae en index.html.
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}

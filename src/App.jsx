@@ -107,6 +107,14 @@ export default function App() {
             )}
 
             <footer className="carta__pie">
+                <img
+                    className="carta__pie-logo"
+                    src="/images/logo-gordo-arepas.png"
+                    alt=""
+                    width="44"
+                    height="41"
+                    loading="lazy"
+                />
                 <p className="carta__firma">¡Hechas al momento!</p>
                 <p className="carta__legal">Precios sujetos a cambios.</p>
             </footer>

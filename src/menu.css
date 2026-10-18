@@ -374,6 +374,15 @@ body {
     text-align: center;
 }
 
+.carta__pie-logo {
+    display: inline-block;
+    width: 2.75rem;
+    height: auto;
+    opacity: .95;
+    filter: drop-shadow(0 .25rem .6rem rgba(0, 0, 0, .4));
+    margin-bottom: .35rem;
+}
+
 .carta__firma {
     margin: 0 0 .25rem;
     font-family: var(--m-fuente-mano);
@@ -385,6 +394,44 @@ body {
     margin: 0;
     font-size: .8125rem;
     color: var(--m-crema-suave);
+}
+
+/* ---------- Barra de pedido fija (móvil) ---------- */
+/* En escritorio no existe: allá manda el boton grande de la carta. */
+.pedido-barra {
+    display: none;
+}
+
+@media (max-width: 640px) {
+    .pedido-barra {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 10;
+        display: block;
+        padding: .7rem 1rem calc(.7rem + env(safe-area-inset-bottom, 0px));
+        background: linear-gradient(to top, rgba(46, 18, 13, .98) 60%, rgba(46, 18, 13, .82));
+        border-top: 1px solid var(--m-linea);
+        box-shadow: 0 -.5rem 1.5rem rgba(0, 0, 0, .35);
+    }
+
+    .pedido-barra .boton-wa,
+    .pedido-barra .pedido-barra__boton {
+        width: 100%;
+        padding: .75rem 1rem;
+        font-size: 1.15rem;
+    }
+
+    /* Aire para que la barra no tape el final de la carta ni el pie. */
+    #root {
+        padding-bottom: 5.25rem;
+    }
+
+    /* El CTA grande del centro no se duplica: en móvil manda la barra. */
+    .carta__pedido-desktop {
+        display: none;
+    }
 }
 
 /* ---------- Estados: cargando, error y pizarra vacía ---------- */

@@ -276,7 +276,14 @@ export default function App() {
                     animate="visible"
                     variants={marcaVariants}
                 >
-                    <span className="carta__sello" aria-hidden="true">Hechas<br />con amor</span>
+                    <img
+                        className="carta__logo"
+                        src="/images/logo-gordo-arepas.png"
+                        alt=""
+                        width="120"
+                        height="111"
+                        loading="eager"
+                    />
                     <BlurText
                         tag="h1"
                         className="carta__titulo"
@@ -296,6 +303,7 @@ export default function App() {
                             disabled={!animar}
                         />
                     </p>
+                    <p className="carta__nota" aria-hidden="true">Hechas con amor</p>
                 </motion.header>
 
                 {animar ? (

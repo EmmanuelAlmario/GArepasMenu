@@ -1,13 +1,12 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion } from 'motion/react'
+import { useCallback, useEffect, useState } from 'react'
+import { motion } from 'motion/react'
 import Aurora from './components/reactbits/Aurora.jsx'
 import BlurText from './components/reactbits/BlurText.jsx'
 import ClickSpark from './components/reactbits/ClickSpark.jsx'
-import GlareHover from './components/reactbits/GlareHover.jsx'
 import Noise from './components/reactbits/Noise.jsx'
 import ShinyText from './components/reactbits/ShinyText.jsx'
-import IlustracionProducto from './components/IlustracionProducto.jsx'
-import { detalleDe } from './data/detalles.js'
+import TarjetaProducto, { filaVariants } from './components/TarjetaProducto.jsx'
+import BotonWhatsApp from './components/BotonWhatsApp.jsx'
 
 // URL del backend Spring Boot (GArepasAppV2).
 // Orden de prioridad:
@@ -19,12 +18,6 @@ const API_URL =
     import.meta.env.VITE_API_URL ||
     'http://localhost:8080'
 
-const monetizar = new Intl.NumberFormat('es-CO', {
-    style: 'currency',
-    currency: 'COP',
-    maximumFractionDigits: 0,
-})
-
 // La aurora y el grano son decorativos: con "reducir movimiento" no se montan.
 const auroraColores = ['#7A2E1F', '#F67D14', '#FED05F']
 
@@ -33,133 +26,20 @@ const listaVariants = {
     visible: { transition: { staggerChildren: 0.09, delayChildren: 0.15 } },
 }
 
-const filaVariants = {
-    oculta: { opacity: 0, y: 14 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: 'easeOut' } },
-}
-
 const marcaVariants = {
     oculta: { opacity: 0, scale: 0.92 },
     visible: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: 'easeOut' } },
 }
 
-const transicionFicha = {
-    height: { duration: 0.34, ease: [0.25, 0.8, 0.35, 1] },
-    opacity: { duration: 0.24, ease: 'easeOut' },
-}
-
-function ProductoFila({ producto, abierto, modoHover, animar, onAbrir, onCerrar, onAlternar }) {
-    const detalle = detalleDe(producto)
-    const agotado = !producto.disponible
-    const idFicha = `ficha-producto-${producto.id}`
-    const temporizador = useRef(null)
-
-    // Pequeña demora al salir para no cerrar por un movimiento accidental.
-    const entrar = () => {
-        window.clearTimeout(temporizador.current)
-        onAbrir()
-    }
-
-    const programarCierre = () => {
-        window.clearTimeout(temporizador.current)
-        temporizador.current = window.setTimeout(onCerrar, 140)
-    }
-
-    useEffect(() => () => window.clearTimeout(temporizador.current), [])
-
-    return (
-        <motion.li
-            className={agotado ? 'producto-item producto--agotado' : 'producto-item'}
-            variants={filaVariants}
-            onMouseEnter={modoHover ? entrar : undefined}
-            onMouseLeave={modoHover ? programarCierre : undefined}
-        >
-            {/* Con puntero fino manda el hover (y el foco de teclado):
-                el clic no alterna para no cerrar por sorpresa.
-                En táctil, el toque abre y cierra. */}
-            <button
-                type="button"
-                className="producto"
-                aria-expanded={abierto}
-                aria-controls={idFicha}
-                onClick={modoHover ? undefined : onAlternar}
-                onFocus={modoHover ? entrar : undefined}
-                onBlur={modoHover ? onCerrar : undefined}
-            >
-                <GlareHover
-                    className="producto__fila"
-                    width="100%"
-                    height="auto"
-                    background="transparent"
-                    borderColor="transparent"
-                    borderRadius="8px"
-                    glareColor="#FED05F"
-                    glareOpacity={0.16}
-                    glareAngle={-45}
-                    glareSize={60}
-                    transitionDuration={900}
-                >
-                    <span className="producto__indicador" aria-hidden="true">+</span>
-                    <span className="producto__nombre">{producto.nombre}</span>
-                    <span className="producto__puntos" aria-hidden="true" />
-                    <span className="producto__precio">{monetizar.format(producto.precio)}</span>
-                </GlareHover>
-                {agotado && <span className="producto__sello">Agotado</span>}
-            </button>
-
-            <AnimatePresence initial={false}>
-                {abierto && (
-                    <motion.div
-                        id={idFicha}
-                        className="producto__ficha"
-                        initial={animar ? { height: 0, opacity: 0 } : false}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={animar ? { height: 0, opacity: 0 } : undefined}
-                        transition={animar ? transicionFicha : { duration: 0 }}
-                    >
-                        <motion.div
-                            className="producto__ficha-contenido"
-                            initial={animar ? { y: -10, opacity: 0 } : false}
-                            animate={{ y: 0, opacity: 1 }}
-                            transition={{ duration: animar ? 0.3 : 0, delay: animar ? 0.08 : 0, ease: 'easeOut' }}
-                        >
-                            {detalle.imagen
-                                ? <img className="producto__ilustracion" src={detalle.imagen} alt="" loading="lazy" />
-                                : <IlustracionProducto nombre={producto.nombre} />}
-                            <div className="producto__ficha-texto">
-                                <p className="producto__descripcion">{detalle.descripcion}</p>
-                                {detalle.ingredientes.length > 0 && (
-                                    <>
-                                        <p className="producto__ingredientes-titulo">Ingredientes</p>
-                                        <ul className="producto__chips">
-                                            {detalle.ingredientes.map((ingrediente) => (
-                                                <li key={ingrediente} className="producto__chip">{ingrediente}</li>
-                                            ))}
-                                        </ul>
-                                    </>
-                                )}
-                                {agotado && <p className="producto__nota-agotado">Hoy no está disponible.</p>}
-                            </div>
-                        </motion.div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </motion.li>
-    )
-}
-
 export default function App() {
     const [estado, setEstado] = useState('cargando') // cargando | listo | error | vacio
     const [productos, setProductos] = useState([])
-    const [abiertoId, setAbiertoId] = useState(null)
-    const [modoHover, setModoHover] = useState(false)
     const [animar, setAnimar] = useState(
         () => !window.matchMedia('(prefers-reduced-motion: reduce)').matches,
     )
 
     const cargar = useCallback(async () => {
         setEstado('cargando')
-        setAbiertoId(null)
         try {
             const respuesta = await fetch(`${API_URL}/api/public/menu`)
             if (!respuesta.ok) throw new Error(`HTTP ${respuesta.status}`)
@@ -174,23 +54,6 @@ export default function App() {
     useEffect(() => {
         cargar()
     }, [cargar])
-
-    // Solo los dispositivos con puntero fino abren la ficha al pasar el cursor.
-    useEffect(() => {
-        const consulta = window.matchMedia('(hover: hover) and (pointer: fine)')
-        const actualizar = () => setModoHover(consulta.matches)
-        actualizar()
-        consulta.addEventListener('change', actualizar)
-        return () => consulta.removeEventListener('change', actualizar)
-    }, [])
-
-    useEffect(() => {
-        const alPresionar = (evento) => {
-            if (evento.key === 'Escape') setAbiertoId(null)
-        }
-        window.addEventListener('keydown', alPresionar)
-        return () => window.removeEventListener('keydown', alPresionar)
-    }, [])
 
     const contenido = (
         <>
@@ -227,21 +90,21 @@ export default function App() {
                     variants={listaVariants}
                 >
                     {productos.map((producto) => (
-                        <ProductoFila
-                            key={producto.id}
-                            producto={producto}
-                            abierto={abiertoId === producto.id}
-                            modoHover={modoHover}
-                            animar={animar}
-                            onAbrir={() => setAbiertoId(producto.id)}
-                            onCerrar={() => setAbiertoId((actual) => (actual === producto.id ? null : actual))}
-                            onAlternar={() => setAbiertoId((actual) => (actual === producto.id ? null : producto.id))}
-                        />
+                        <TarjetaProducto key={producto.id} producto={producto} />
                     ))}
                 </motion.ul>
             )}
 
             <div className="carta__divisor" aria-hidden="true"><span>◆</span></div>
+
+            {estado === 'listo' && (
+                <div className="carta__pedido-desktop">
+                    <p className="carta__pedido-rotulo">
+                        Los pedidos salen calientes: escríbenos y lo tienes.
+                    </p>
+                    <BotonWhatsApp />
+                </div>
+            )}
 
             <footer className="carta__pie">
                 <p className="carta__firma">¡Hechas al momento!</p>
@@ -321,6 +184,13 @@ export default function App() {
                     contenido
                 )}
             </main>
+
+            {/* Barra de pedido fija en móvil: el CTA nunca se pierde. */}
+            {estado === 'listo' && (
+                <div className="pedido-barra">
+                    <BotonWhatsApp className="pedido-barra__boton" />
+                </div>
+            )}
         </>
     )
 }

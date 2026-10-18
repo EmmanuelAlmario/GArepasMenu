@@ -130,180 +130,107 @@ body {
     transform: rotate(-2deg);
 }
 
-/* ---------- Lista de productos ---------- */
+/* ---------- Lista y tarjetas de producto ---------- */
 .carta__lista {
     list-style: none;
     margin: 0;
     padding: 0;
     display: grid;
-    gap: 1.1rem;
+    gap: 1rem;
 }
 
-.producto-item {
+.tarjeta-item {
     position: relative;
 }
 
-/* Fila interactiva: botón real para teclado y lectores de pantalla. */
-.producto {
-    position: relative;
+/* GlareHover (React Bits) adaptado a tarjeta: transparente y bloque. */
+.tarjeta__marco.glare-hover {
     display: block;
-    width: 100%;
-    margin: 0;
-    padding: .2rem 0;
-    border: 0;
-    border-radius: 6px;
-    background: none;
-    font: inherit;
-    color: inherit;
-    text-align: left;
-    cursor: pointer;
-}
-
-.producto:focus-visible {
-    outline: 2px solid var(--m-oro);
-    outline-offset: 3px;
-}
-
-/* GlareHover (React Bits) adaptado a fila: transparente y flex. */
-.producto__fila.glare-hover {
-    display: flex;
-    align-items: baseline;
-    gap: .5rem;
     width: 100%;
     height: auto;
     border: 0;
-    border-radius: 8px;
+    border-radius: 12px;
 }
 
-.producto__indicador {
-    align-self: center;
-    flex-shrink: 0;
+.tarjeta__cuerpo {
     display: grid;
-    place-content: center;
-    width: 1.4rem;
-    height: 1.4rem;
-    border: 1px solid var(--m-oro);
-    border-radius: 50%;
-    font-family: var(--m-fuente-display);
-    font-size: 1.05rem;
-    line-height: 1;
-    color: var(--m-oro);
-    transition: background-color .2s ease, color .2s ease, transform .2s ease;
-}
-
-.producto[aria-expanded="true"] .producto__indicador {
-    background-color: var(--m-oro);
-    color: var(--m-fondo);
-    transform: rotate(45deg);
-}
-
-@media (hover: hover) {
-    .producto:hover .producto__indicador {
-        background-color: var(--m-oro);
-        color: var(--m-fondo);
-    }
-}
-
-.producto__nombre {
-    font-weight: 500;
-    font-size: 1.0625rem;
-    letter-spacing: .01em;
-}
-
-.producto__puntos {
-    flex: 1;
-    min-width: 1.5rem;
-    border-bottom: 2px dotted var(--m-linea);
-    transform: translateY(-4px);
-}
-
-.producto__precio {
-    font-family: var(--m-fuente-display);
-    font-size: 1.375rem;
-    line-height: 1;
-    letter-spacing: .04em;
-    color: var(--m-oro);
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
-}
-
-/* Agotado: la fila se atenúa y el tampón cruza el precio. */
-.producto--agotado .producto__nombre,
-.producto--agotado .producto__precio,
-.producto--agotado .producto__indicador {
-    opacity: .45;
-}
-
-.producto--agotado .producto__ilustracion {
-    opacity: .5;
-    filter: grayscale(.35);
-}
-
-.producto__sello {
-    position: absolute;
-    right: .25rem;
-    top: 50%;
-    transform: translateY(-50%) rotate(-7deg);
-    padding: .1rem .55rem;
-    border: 2px solid var(--m-tinta-agotado);
-    border-radius: 4px;
-    background-color: rgba(46, 18, 13, .85);
-    font-family: var(--m-fuente-display);
-    font-size: 1rem;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: var(--m-tinta-agotado);
-}
-
-/* ---------- Ficha expandible del producto ---------- */
-.producto__ficha {
-    overflow: hidden;
-}
-
-.producto__ficha-contenido {
-    display: grid;
-    grid-template-columns: 6.5rem 1fr;
+    grid-template-columns: 7rem 1fr;
     gap: 1rem;
     align-items: start;
-    margin: .3rem 0 .85rem .2rem;
-    padding: .9rem 1rem;
-    border-left: 2px solid rgba(254, 208, 95, .55);
-    border-radius: 0 10px 10px 0;
+    padding: .95rem 1rem .95rem .95rem;
+    border: 1px solid rgba(253, 243, 227, .14);
+    border-radius: 12px;
     background-color: rgba(253, 243, 227, .05);
+    box-shadow: 0 .4rem 1.2rem rgba(0, 0, 0, .25);
 }
 
-.producto__ilustracion {
+/* ---------- Visual: ilustracion + estado ---------- */
+.tarjeta__visual {
+    position: relative;
+    align-self: center;
+}
+
+.tarjeta__ilustracion,
+.tarjeta__visual > svg {
     display: block;
-    width: 6.5rem;
-    height: 6.5rem;
-    border-radius: 8px;
-    object-fit: cover;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
 }
 
-.producto__ficha-texto {
+.tarjeta__estado {
+    position: absolute;
+    left: .3rem;
+    bottom: .3rem;
+    padding: .12rem .55rem;
+    border-radius: 999px;
+    background-color: rgba(254, 208, 95, .95);
+    font-family: var(--m-fuente-display);
+    font-size: .72rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #4A2A0F;
+}
+
+.tarjeta__estado--agotado {
+    background-color: rgba(255, 138, 107, .95);
+    color: #401310;
+}
+
+/* Agotado: la tarjeta se apaga entera. */
+.tarjeta-item--agotado .tarjeta__ilustracion,
+.tarjeta-item--agotado .tarjeta__visual > svg,
+.tarjeta-item--agotado .tarjeta__nombre,
+.tarjeta-item--agotado .tarjeta__precio {
+    opacity: .5;
+    filter: grayscale(.4);
+}
+
+/* ---------- Datos ---------- */
+.tarjeta__datos {
     display: grid;
-    gap: .55rem;
+    gap: .45rem;
     align-content: start;
 }
 
-.producto__descripcion {
+.tarjeta__nombre {
     margin: 0;
-    font-size: .95rem;
+    font-family: var(--m-fuente-display);
+    font-weight: 400;
+    font-size: 1.55rem;
+    line-height: 1;
+    letter-spacing: .04em;
+    color: var(--m-crema);
+}
+
+.tarjeta__descripcion {
+    margin: 0;
+    font-size: .92rem;
     line-height: 1.5;
     color: var(--m-crema);
 }
 
-.producto__ingredientes-titulo {
-    margin: 0;
-    font-family: var(--m-fuente-display);
-    font-size: .8rem;
-    font-weight: 400;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--m-oro);
-}
-
-.producto__chips {
+.tarjeta__chips {
     display: flex;
     flex-wrap: wrap;
     gap: .35rem;
@@ -312,15 +239,66 @@ body {
     list-style: none;
 }
 
-.producto__chip {
-    padding: .15rem .6rem;
+.tarjeta__chip {
+    padding: .12rem .55rem;
     border: 1px solid var(--m-linea);
     border-radius: 999px;
-    font-size: .78rem;
+    font-size: .74rem;
     color: var(--m-crema-suave);
 }
 
-.producto__nota-agotado {
+/* Precio protagonista y pedido directo: la fila que convierte. */
+.tarjeta__pie {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: .6rem;
+    margin-top: .35rem;
+}
+
+.tarjeta__precio {
+    font-family: var(--m-fuente-display);
+    font-size: 1.7rem;
+    line-height: 1;
+    letter-spacing: .04em;
+    color: var(--m-oro);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.tarjeta__pedir {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    padding: .55rem 1.1rem;
+    border: 0;
+    border-radius: 999px;
+    background-color: #25D366;
+    font-family: var(--m-fuente-display);
+    font-size: 1.05rem;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: #0B2E17;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .15s ease;
+    box-shadow: 0 .25rem .8rem rgba(37, 211, 102, .25);
+}
+
+.tarjeta__pedir:hover,
+.tarjeta__pedir:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: 0 .35rem 1rem rgba(37, 211, 102, .35);
+    outline: 2px solid var(--m-oro);
+    outline-offset: 2px;
+}
+
+.boton-wa__icono {
+    flex-shrink: 0;
+}
+
+.tarjeta__nota-agotado {
     margin: 0;
     font-size: .85rem;
     font-weight: 500;
@@ -329,9 +307,50 @@ body {
 
 /* En táctil el destello no aplica (evita el hover pegajoso). */
 @media (hover: none) {
-    .producto__fila.glare-hover::before {
+    .tarjeta__marco.glare-hover::before {
         display: none;
     }
+}
+
+/* ---------- CTA de pedido (escritorio) ---------- */
+.carta__pedido-desktop {
+    text-align: center;
+}
+
+.carta__pedido-rotulo {
+    margin: 0 0 .8rem;
+    font-family: var(--m-fuente-mano);
+    font-size: 1.35rem;
+    color: var(--m-crema-suave);
+}
+
+/* ---------- Boton grande de WhatsApp ---------- */
+.boton-wa {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+    padding: .8rem 1.9rem;
+    border: 0;
+    border-radius: 999px;
+    background-color: #25D366;
+    font-family: var(--m-fuente-display);
+    font-size: 1.25rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: #0B2E17;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 .35rem 1.1rem rgba(37, 211, 102, .3);
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.boton-wa:hover,
+.boton-wa:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 .5rem 1.4rem rgba(37, 211, 102, .4);
+    outline: 2px solid var(--m-oro);
+    outline-offset: 2px;
 }
 
 /* ---------- Divisor y pie ---------- */
@@ -416,18 +435,22 @@ body {
         width: clamp(4.75rem, 14vw, 5.5rem);
     }
 
-    .producto__fila {
-        gap: .4rem;
+    .tarjeta__cuerpo {
+        grid-template-columns: 5.5rem 1fr;
+        gap: .85rem;
+        padding: .8rem;
     }
 
-    .producto__ficha-contenido {
-        grid-template-columns: 5rem 1fr;
-        gap: .8rem;
-        padding: .8rem .85rem;
+    .tarjeta__nombre {
+        font-size: 1.35rem;
     }
 
-    .producto__ilustracion {
-        width: 5rem;
-        height: 5rem;
+    .tarjeta__precio {
+        font-size: 1.5rem;
+    }
+
+    .tarjeta__pedir {
+        padding: .5rem .9rem;
+        font-size: .95rem;
     }
 }

@@ -1,7 +1,7 @@
 /*
  * Ilustración SVG por tipo de producto (reemplazo temporal de fotos).
  *
- * Dibujadas a mano con la paleta de la pizarra: sin dependencias de red,
+ * Dibujadas a mano con la paleta crema: sin dependencias de red,
  * nunca se ven rotas. Cuando existan fotos reales, el campo `imagen` del
  * mapa de detalles tendrá prioridad y este componente queda como fallback.
  */
@@ -19,7 +19,7 @@ function tipoDe(nombre) {
 function BaseArepa({ plana = false }) {
     return (
         <>
-            <ellipse cx="60" cy="82" rx="36" ry="10" fill="rgba(0, 0, 0, .25)" />
+            <ellipse cx="60" cy="82" rx="36" ry="10" fill="rgba(58, 42, 32, .18)" />
             <ellipse cx="60" cy="74" rx="36" ry={plana ? 11 : 15} fill="#D89A4E" />
             <ellipse cx="60" cy={plana ? 72 : 70} rx="36" ry={plana ? 9 : 13} fill="#F2C97F" />
         </>
@@ -43,8 +43,8 @@ export default function IlustracionProducto({ nombre }) {
 
     return (
         <svg className="producto__ilustracion" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
-            <circle cx="60" cy="60" r="52" fill="rgba(254, 208, 95, .08)" />
-            <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(254, 208, 95, .22)" />
+            <circle cx="60" cy="60" r="52" fill="rgba(185, 123, 36, .07)" />
+            <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(185, 123, 36, .25)" />
 
             {tipo === 'arepa-queso' && (
                 <g>
@@ -79,18 +79,18 @@ export default function IlustracionProducto({ nombre }) {
 
             {tipo === 'chocolate' && (
                 <g>
-                    <ellipse cx="60" cy="96" rx="26" ry="7" fill="rgba(0, 0, 0, .25)" />
+                    <ellipse cx="60" cy="96" rx="26" ry="7" fill="rgba(58, 42, 32, .18)" />
                     <path
                         d="M80 58 c10 0 16 5 16 12 c0 7 -6 12 -16 12"
                         fill="none"
-                        stroke="#E9D8BE"
+                        stroke="#8A715C"
                         strokeWidth="6"
                         strokeLinecap="round"
                     />
-                    <path d="M40 46 h40 v26 c0 12 -8 20 -20 20 s-20 -8 -20 -20 Z" fill="#E9D8BE" />
-                    <rect x="40" y="58" width="40" height="7" fill="#FED05F" opacity=".85" />
+                    <path d="M40 46 h40 v26 c0 12 -8 20 -20 20 s-20 -8 -20 -20 Z" fill="#F3E4C8" stroke="#8A715C" strokeWidth="2" />
+                    <rect x="40" y="58" width="40" height="7" fill="#C8871F" opacity=".9" />
                     <ellipse cx="60" cy="46" rx="20" ry="6" fill="#5C2E1A" />
-                    <g fill="none" stroke="rgba(253, 243, 227, .6)" strokeWidth="3" strokeLinecap="round">
+                    <g fill="none" stroke="rgba(138, 113, 92, .55)" strokeWidth="3" strokeLinecap="round">
                         <path d="M51 36 q5 -6 0 -12" />
                         <path d="M60 32 q5 -6 0 -12" />
                         <path d="M69 36 q5 -6 0 -12" />
@@ -100,8 +100,8 @@ export default function IlustracionProducto({ nombre }) {
 
             {tipo === 'gaseosa' && (
                 <g>
-                    <ellipse cx="60" cy="97" rx="22" ry="6" fill="rgba(0, 0, 0, .25)" />
-                    <rect x="54" y="22" width="12" height="8" rx="2" fill="#FED05F" />
+                    <ellipse cx="60" cy="97" rx="22" ry="6" fill="rgba(58, 42, 32, .18)" />
+                    <rect x="54" y="22" width="12" height="8" rx="2" fill="#C8871F" />
                     <rect x="56" y="30" width="8" height="12" fill="#C95B4A" />
                     <rect x="48" y="40" width="24" height="54" rx="10" fill="#C95B4A" />
                     <rect x="52" y="60" width="16" height="3" rx="1.5" fill="#FDF3E3" opacity=".9" />
@@ -116,11 +116,11 @@ export default function IlustracionProducto({ nombre }) {
 
             {tipo === 'generico' && (
                 <g>
-                    <ellipse cx="60" cy="78" rx="34" ry="12" fill="#E9D8BE" opacity=".9" />
-                    <ellipse cx="60" cy="76" rx="23" ry="7.5" fill="rgba(58, 22, 16, .4)" />
+                    <ellipse cx="60" cy="78" rx="34" ry="12" fill="#E8D5B5" opacity=".95" />
+                    <ellipse cx="60" cy="76" rx="23" ry="7.5" fill="rgba(58, 42, 32, .35)" />
                     <path
                         d="M60 30 l4.5 11 11 4.5 -11 4.5 -4.5 11 -4.5 -11 -11 -4.5 11 -4.5 Z"
-                        fill="#FED05F"
+                        fill="#C8871F"
                     />
                 </g>
             )}

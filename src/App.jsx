@@ -3,7 +3,6 @@ import { motion } from 'motion/react'
 import Aurora from './components/reactbits/Aurora.jsx'
 import BlurText from './components/reactbits/BlurText.jsx'
 import ClickSpark from './components/reactbits/ClickSpark.jsx'
-import Noise from './components/reactbits/Noise.jsx'
 import ShinyText from './components/reactbits/ShinyText.jsx'
 import TarjetaProducto, { filaVariants } from './components/TarjetaProducto.jsx'
 import BotonWhatsApp from './components/BotonWhatsApp.jsx'
@@ -18,8 +17,9 @@ const API_URL =
     import.meta.env.VITE_API_URL ||
     'http://localhost:8080'
 
-// La aurora y el grano son decorativos: con "reducir movimiento" no se montan.
-const auroraColores = ['#7A2E1F', '#F67D14', '#FED05F']
+// La aurora es decorativa: con "reducir movimiento" no se monta.
+// En la paleta crema queda como un aliento pastel detras del contenido.
+const auroraColores = ['#F6E3C3', '#F2C678', '#E8B34B']
 
 const listaVariants = {
     oculta: {},
@@ -59,7 +59,7 @@ export default function App() {
         <>
             {estado === 'cargando' && (
                 <p className="carta__estado" role="status">
-                    <strong className="carta__estado-titulo">Encendiendo la pizarra...</strong>
+                    <strong className="carta__estado-titulo">Encendiendo la pizarra…</strong>
                 </p>
             )}
 
@@ -127,16 +127,10 @@ export default function App() {
                 <div className="aurora-fondo" aria-hidden="true">
                     <Aurora
                         colorStops={auroraColores}
-                        amplitude={1.1}
-                        blend={0.55}
-                        speed={0.8}
+                        amplitude={0.7}
+                        blend={0.35}
+                        speed={0.6}
                     />
-                </div>
-            )}
-
-            {animar && (
-                <div className="ruido-fondo" aria-hidden="true">
-                    <Noise patternAlpha={10} patternRefreshInterval={14} />
                 </div>
             )}
 
@@ -155,20 +149,24 @@ export default function App() {
                         height="111"
                         loading="eager"
                     />
-                    <BlurText
-                        tag="h1"
-                        className="carta__titulo"
-                        text="Gordo Arepas"
-                        animateBy="letters"
-                        direction="top"
-                        delay={40}
-                        stepDuration={0.3}
-                    />
+                    {animar ? (
+                        <BlurText
+                            tag="h1"
+                            className="carta__titulo"
+                            text="Gordo Arepas"
+                            animateBy="letters"
+                            direction="top"
+                            delay={40}
+                            stepDuration={0.3}
+                        />
+                    ) : (
+                        <h1 className="carta__titulo">Gordo Arepas</h1>
+                    )}
                     <p className="carta__sub">
                         <ShinyText
                             text="— arepas artesanales —"
-                            color="#E9D8BE"
-                            shineColor="#FED05F"
+                            color="#8A715C"
+                            shineColor="#C8871F"
                             speed={3}
                             spread={100}
                             disabled={!animar}
@@ -179,7 +177,7 @@ export default function App() {
 
                 {animar ? (
                     <ClickSpark
-                        sparkColor="#FED05F"
+                        sparkColor="#C8871F"
                         sparkSize={9}
                         sparkRadius={18}
                         sparkCount={9}

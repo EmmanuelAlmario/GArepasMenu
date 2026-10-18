@@ -42,8 +42,8 @@ export default function TarjetaProducto({ producto }) {
                 background="transparent"
                 borderColor="transparent"
                 borderRadius="12px"
-                glareColor="#FED05F"
-                glareOpacity={0.14}
+                glareColor="#B97B24"
+                glareOpacity={0.1}
                 glareAngle={-45}
                 glareSize={90}
                 transitionDuration={900}

@@ -6,17 +6,24 @@
    ============================================================= */
 
 :root {
-    --m-fondo: #2E120D;
-    --m-carta: #3A1610;
-    --m-linea: rgba(253, 243, 227, .28);
-    --m-crema: #FDF3E3;
-    --m-crema-suave: #E9D8BE;
-    --m-oro: #FED05F;
-    --m-tinta-agotado: #FF8A6B;
-
+    color-scheme: light;
+    /* Paleta crema y minimalista: papel, tinta espresso y un toque de oro. */
+    --m-fondo: #FAF3E7;              /* crema del papel */
+    --m-superficie: #FFFFFF;          /* tarjetas */
+    --m-linea: rgba(58, 42, 32, .14);
+    --m-tinta: #3A2A20;               /* texto principal */
+    --m-tinta-suave: #8A715C;         /* texto secundario */
+    --m-acento: #B97B24;              /* acento dorado (ok sobre crema) */
     --m-fuente-display: "Bebas Neue", "Arial Narrow", sans-serif;
     --m-fuente-mano: "Caveat", "Segoe Script", cursive;
     --m-fuente-texto: "Inter", system-ui, sans-serif;
+
+    /* Alias con los nombres historicos, para que ninguna regla quede colgada. */
+    --m-crema: var(--m-tinta);
+    --m-crema-suave: var(--m-tinta-suave);
+    --m-oro: var(--m-acento);
+    --m-tinta-agotado: #C0563F;
+    --m-carta: #FFFDF7;
 }
 
 * {
@@ -34,6 +41,9 @@ body {
     color: var(--m-crema);
     font-family: var(--m-fuente-texto);
     line-height: 1.5;
+    /* Sin lag azul de tap en móvil: los estados hover/focus ya lo cubren. */
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -67,19 +77,12 @@ body {
 }
 
 /* ---------- La carta ---------- */
+/* Minimal: sin panel ni marco; la pagina es la carta. */
 .carta {
     position: relative;
     z-index: 1;
     width: min(100%, 40rem);
-    background-color: rgba(58, 22, 16, .92);
-    border: 1px solid var(--m-linea);
-    /* Doble marco interior, como las cartas impresas. */
-    box-shadow:
-        inset 0 0 0 4px var(--m-carta),
-        inset 0 0 0 5px rgba(253, 243, 227, .22),
-        0 1.5rem 3rem rgba(0, 0, 0, .35);
-    border-radius: 12px;
-    padding: clamp(1.75rem, 6vw, 3rem);
+    padding: 0 0 .5rem;
 }
 
 /* ---------- Marca ---------- */
@@ -97,7 +100,7 @@ body {
     width: clamp(5.5rem, 15vw, 7rem);
     height: auto;
     /* Sombra suave para que el personaje "flote" sobre la pizarra. */
-    filter: drop-shadow(0 .5rem 1.25rem rgba(0, 0, 0, .45));
+    filter: drop-shadow(0 .35rem .8rem rgba(58, 42, 32, .18));
     margin-bottom: .75rem;
 }
 
@@ -111,6 +114,7 @@ body {
     color: var(--m-crema);
     /* BlurText renderiza flex: el título se mantiene centrado. */
     justify-content: center;
+    text-wrap: balance;
 }
 
 .carta__sub {
@@ -158,10 +162,10 @@ body {
     gap: 1rem;
     align-items: start;
     padding: .95rem 1rem .95rem .95rem;
-    border: 1px solid rgba(253, 243, 227, .14);
+    border: 1px solid var(--m-linea);
     border-radius: 12px;
-    background-color: rgba(253, 243, 227, .05);
-    box-shadow: 0 .4rem 1.2rem rgba(0, 0, 0, .25);
+    background-color: var(--m-superficie);
+    box-shadow: 0 .25rem .8rem rgba(58, 42, 32, .07);
 }
 
 /* ---------- Visual: ilustracion + estado ---------- */
@@ -184,17 +188,17 @@ body {
     bottom: .3rem;
     padding: .12rem .55rem;
     border-radius: 999px;
-    background-color: rgba(254, 208, 95, .95);
+    background-color: rgba(185, 123, 36, .14);
     font-family: var(--m-fuente-display);
     font-size: .72rem;
     letter-spacing: .1em;
     text-transform: uppercase;
-    color: #4A2A0F;
+    color: #6B4A12;
 }
 
 .tarjeta__estado--agotado {
-    background-color: rgba(255, 138, 107, .95);
-    color: #401310;
+    background-color: rgba(192, 86, 63, .16);
+    color: #7A2E1F;
 }
 
 /* Agotado: la tarjeta se apaga entera. */
@@ -221,6 +225,7 @@ body {
     line-height: 1;
     letter-spacing: .04em;
     color: var(--m-crema);
+    text-wrap: balance;
 }
 
 .tarjeta__descripcion {
@@ -379,7 +384,7 @@ body {
     width: 2.75rem;
     height: auto;
     opacity: .95;
-    filter: drop-shadow(0 .25rem .6rem rgba(0, 0, 0, .4));
+    filter: drop-shadow(0 .2rem .5rem rgba(58, 42, 32, .18));
     margin-bottom: .35rem;
 }
 
@@ -411,9 +416,11 @@ body {
         z-index: 10;
         display: block;
         padding: .7rem 1rem calc(.7rem + env(safe-area-inset-bottom, 0px));
-        background: linear-gradient(to top, rgba(46, 18, 13, .98) 60%, rgba(46, 18, 13, .82));
+        background: rgba(250, 243, 231, .92);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
         border-top: 1px solid var(--m-linea);
-        box-shadow: 0 -.5rem 1.5rem rgba(0, 0, 0, .35);
+        box-shadow: 0 -.35rem 1.2rem rgba(58, 42, 32, .08);
     }
 
     .pedido-barra .boton-wa,

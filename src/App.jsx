@@ -18,8 +18,8 @@ const API_URL =
     'http://localhost:8080'
 
 // La aurora es decorativa: con "reducir movimiento" no se monta.
-// En la paleta crema queda como un aliento pastel detras del contenido.
-const auroraColores = ['#F6E3C3', '#F2C678', '#E8B34B']
+// En la paleta de la app respalda como un aliento de brasa sobre la crema.
+const auroraColores = ['#FEF6AA', '#E19C71', '#FED05F']
 
 const listaVariants = {
     oculta: {},
@@ -165,8 +165,8 @@ export default function App() {
                     <p className="carta__sub">
                         <ShinyText
                             text="— arepas artesanales —"
-                            color="#8A715C"
-                            shineColor="#C8871F"
+                            color="#6B5F57"
+                            shineColor="#C0430B"
                             speed={3}
                             spread={100}
                             disabled={!animar}
@@ -177,7 +177,7 @@ export default function App() {
 
                 {animar ? (
                     <ClickSpark
-                        sparkColor="#C8871F"
+                        sparkColor="#C0430B"
                         sparkSize={9}
                         sparkRadius={18}
                         sparkCount={9}
@@ -194,7 +194,7 @@ export default function App() {
             {/* Barra de pedido fija en móvil: el CTA nunca se pierde. */}
             {estado === 'listo' && (
                 <div className="pedido-barra">
-                    <BotonWhatsApp className="pedido-barra__boton" />
+                    <BotonWhatsApp className="boton-wa pedido-barra__boton" />
                 </div>
             )}
         </>

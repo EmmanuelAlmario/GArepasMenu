@@ -7,13 +7,23 @@
 
 :root {
     color-scheme: light;
-    /* Paleta crema y minimalista: papel, tinta espresso y un toque de oro. */
-    --m-fondo: #FAF3E7;              /* crema del papel */
-    --m-superficie: #FFFFFF;          /* tarjetas */
-    --m-linea: rgba(58, 42, 32, .14);
-    --m-tinta: #3A2A20;               /* texto principal */
-    --m-tinta-suave: #8A715C;         /* texto secundario */
-    --m-acento: #B97B24;              /* acento dorado (ok sobre crema) */
+    /* Paleta de la aplicación: la misma de GArepasAppV2 (tokens.css),
+       para que el menú se sienta parte del mismo producto. */
+    --m-fondo: #F3EEE4;              /* crema del lienzo */
+    --m-superficie: #FFFDF9;         /* tarjetas */
+    --m-linea: #E6DCCB;              /* borde */
+    --m-linea-fuerte: #CBB9A0;
+    --m-tinta: #2A0F0A;              /* tinta de marca */
+    --m-tinta-suave: #6B5F57;        /* texto secundario */
+    --m-burdeos: #56241C;            /* titulos de la casa */
+    --m-acento: #C0430B;             /* ladrillo: el acento de la app */
+    --m-acento-oscuro: #9E3709;
+    --m-naranja: #F67D14;            /* el detalle que abre cada pantalla */
+    --m-gold: #FED05F;               /* oro del arepero */
+    --m-arena: #FEF6AA;
+    --m-terracota: #E19C71;
+    --m-on-brand: #FDFCF7;
+    --m-ink-rgb: 42, 15, 10;
     --m-fuente-display: "Bebas Neue", "Arial Narrow", sans-serif;
     --m-fuente-mano: "Caveat", "Segoe Script", cursive;
     --m-fuente-texto: "Inter", system-ui, sans-serif;
@@ -22,7 +32,7 @@
     --m-crema: var(--m-tinta);
     --m-crema-suave: var(--m-tinta-suave);
     --m-oro: var(--m-acento);
-    --m-tinta-agotado: #C0563F;
+    --m-tinta-agotado: #A81E2C;
     --m-carta: #FFFDF7;
 }
 
@@ -38,6 +48,11 @@ body {
     margin: 0;
     min-height: 100%;
     background-color: var(--m-fondo);
+    /* Lienzo de la app: punteado fino de la marca sobre el lavado calido. */
+    background-image:
+        radial-gradient(rgba(var(--m-ink-rgb), .06) 1px, transparent 1px),
+        radial-gradient(120% 60% at 100% 0%, rgba(254, 208, 95, .16) 0%, rgba(254, 208, 95, 0) 55%);
+    background-size: 22px 22px, auto;
     color: var(--m-crema);
     font-family: var(--m-fuente-texto);
     line-height: 1.5;
@@ -66,6 +81,8 @@ body {
         rgba(0, 0, 0, .8), transparent 65%);
     mask-image: linear-gradient(to bottom,
         rgba(0, 0, 0, .8), transparent 65%);
+    /* Aura de respaldo: la paleta manda, la aurora solo acompaña. */
+    opacity: .5;
 }
 
 /* ---------- Grano de pizarra (React Bits Noise) ---------- */
@@ -96,11 +113,21 @@ body {
     border-bottom: 1px solid var(--m-linea);
 }
 
+/* Acento de marca: la barrita naranja que abre cada pantalla en la app. */
+.carta__marca::before {
+    content: "";
+    width: 2.5rem;
+    height: .25rem;
+    margin-bottom: 1rem;
+    background: var(--m-naranja);
+    border-radius: 999px;
+}
+
 .carta__logo {
     width: clamp(5.5rem, 15vw, 7rem);
     height: auto;
     /* Sombra suave para que el personaje "flote" sobre la pizarra. */
-    filter: drop-shadow(0 .35rem .8rem rgba(58, 42, 32, .18));
+    filter: drop-shadow(0 .35rem .8rem rgba(var(--m-ink-rgb), .18));
     margin-bottom: .75rem;
 }
 
@@ -111,7 +138,7 @@ body {
     font-size: clamp(3rem, 12vw, 4.5rem);
     line-height: .95;
     letter-spacing: .05em;
-    color: var(--m-crema);
+    color: var(--m-burdeos);
     /* BlurText renderiza flex: el título se mantiene centrado. */
     justify-content: center;
     text-wrap: balance;
@@ -165,7 +192,7 @@ body {
     border: 1px solid var(--m-linea);
     border-radius: 12px;
     background-color: var(--m-superficie);
-    box-shadow: 0 .25rem .8rem rgba(58, 42, 32, .07);
+    box-shadow: 0 .25rem .8rem rgba(var(--m-ink-rgb), .07);
 }
 
 /* ---------- Visual: ilustracion + estado ---------- */
@@ -188,17 +215,17 @@ body {
     bottom: .3rem;
     padding: .12rem .55rem;
     border-radius: 999px;
-    background-color: rgba(185, 123, 36, .14);
+    background-color: rgba(192, 67, 11, .10);
     font-family: var(--m-fuente-display);
     font-size: .72rem;
     letter-spacing: .1em;
     text-transform: uppercase;
-    color: #6B4A12;
+    color: var(--m-acento-oscuro);
 }
 
 .tarjeta__estado--agotado {
-    background-color: rgba(192, 86, 63, .16);
-    color: #7A2E1F;
+    background-color: rgba(220, 53, 69, .12);
+    color: var(--m-tinta-agotado);
 }
 
 /* Agotado: la tarjeta se apaga entera. */
@@ -279,23 +306,24 @@ body {
     padding: .55rem 1.1rem;
     border: 0;
     border-radius: 999px;
-    background-color: #25D366;
+    background-color: var(--m-acento);
     font-family: var(--m-fuente-display);
     font-size: 1.05rem;
     letter-spacing: .06em;
     text-transform: uppercase;
-    color: #0B2E17;
+    color: var(--m-on-brand);
     text-decoration: none;
     cursor: pointer;
-    transition: transform .15s ease, box-shadow .15s ease;
-    box-shadow: 0 .25rem .8rem rgba(37, 211, 102, .25);
+    transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
+    box-shadow: 0 .25rem .8rem rgba(192, 67, 11, .28);
 }
 
 .tarjeta__pedir:hover,
 .tarjeta__pedir:focus-visible {
     transform: translateY(-1px);
-    box-shadow: 0 .35rem 1rem rgba(37, 211, 102, .35);
-    outline: 2px solid var(--m-oro);
+    background-color: var(--m-acento-oscuro);
+    box-shadow: 0 .35rem 1rem rgba(192, 67, 11, .35);
+    outline: 2px solid var(--m-naranja);
     outline-offset: 2px;
 }
 
@@ -338,23 +366,24 @@ body {
     padding: .8rem 1.9rem;
     border: 0;
     border-radius: 999px;
-    background-color: #25D366;
+    background-color: var(--m-acento);
     font-family: var(--m-fuente-display);
     font-size: 1.25rem;
     letter-spacing: .08em;
     text-transform: uppercase;
-    color: #0B2E17;
+    color: var(--m-on-brand);
     text-decoration: none;
     cursor: pointer;
-    box-shadow: 0 .35rem 1.1rem rgba(37, 211, 102, .3);
-    transition: transform .15s ease, box-shadow .15s ease;
+    box-shadow: 0 .35rem 1.1rem rgba(192, 67, 11, .32);
+    transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
 }
 
 .boton-wa:hover,
 .boton-wa:focus-visible {
     transform: translateY(-2px);
-    box-shadow: 0 .5rem 1.4rem rgba(37, 211, 102, .4);
-    outline: 2px solid var(--m-oro);
+    background-color: var(--m-acento-oscuro);
+    box-shadow: 0 .5rem 1.4rem rgba(192, 67, 11, .4);
+    outline: 2px solid var(--m-naranja);
     outline-offset: 2px;
 }
 
@@ -364,7 +393,7 @@ body {
     align-items: center;
     gap: .75rem;
     margin: 1.75rem 0 1.25rem;
-    color: var(--m-oro);
+    color: var(--m-naranja);
     font-size: .8rem;
 }
 
@@ -384,7 +413,7 @@ body {
     width: 2.75rem;
     height: auto;
     opacity: .95;
-    filter: drop-shadow(0 .2rem .5rem rgba(58, 42, 32, .18));
+    filter: drop-shadow(0 .2rem .5rem rgba(var(--m-ink-rgb), .18));
     margin-bottom: .35rem;
 }
 
@@ -416,11 +445,11 @@ body {
         z-index: 10;
         display: block;
         padding: .7rem 1rem calc(.7rem + env(safe-area-inset-bottom, 0px));
-        background: rgba(250, 243, 231, .92);
+        background: rgba(243, 238, 228, .92);
         -webkit-backdrop-filter: blur(8px);
         backdrop-filter: blur(8px);
         border-top: 1px solid var(--m-linea);
-        box-shadow: 0 -.35rem 1.2rem rgba(58, 42, 32, .08);
+        box-shadow: 0 -.35rem 1.2rem rgba(var(--m-ink-rgb), .08);
     }
 
     .pedido-barra .boton-wa,

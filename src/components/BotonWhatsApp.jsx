@@ -1,9 +1,3 @@
-/**
- * Boton de pedido por WhatsApp: pastilla verde con el icono del chat.
- *
- * Acepta un mensaje prellenado opcional. Se oculta por completo
- * si WHATSAPP_URL no esta configurada (sin enlace, sin boton).
- */
 import { enlacePedido, hayWhatsApp } from '../lib/whatsapp.js'
 
 function IconoWhatsApp() {

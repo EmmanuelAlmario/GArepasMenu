@@ -1,10 +1,3 @@
-/**
- * Tarjeta de producto para la carta: ilustracion, descripcion, precio
- * protagonista y pedido directo por WhatsApp.
- *
- * Todos los datos visibles vienen de la API publica (lista blanca:
- * id, nombre, precio, disponible) o del mapa de detalles local.
- */
 import { motion } from 'motion/react'
 import GlareHover from './reactbits/GlareHover.jsx'
 import IlustracionProducto from './IlustracionProducto.jsx'

@@ -1,11 +1,3 @@
-/**
- * Detalles de producto inventados "por el momento".
- *
- * Cuando el backend agregue descripcion/ingredientes al modelo, este mapa
- * queda solo como fallback; hoy es la fuente principal del cliente.
- * El campo `imagen` (URL) es opcional: si algún día se define, tiene
- * prioridad sobre la ilustración SVG en IlustracionProducto.
- */
 export const detallesPorProducto = {
     'Arepa de queso asada': {
         descripcion: 'Arepa gruesa asada en plancha: crujiente por fuera y con el queso derretido por dentro.',

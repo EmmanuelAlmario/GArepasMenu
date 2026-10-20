@@ -7,18 +7,11 @@ import ShinyText from './components/reactbits/ShinyText.jsx'
 import TarjetaProducto, { filaVariants } from './components/TarjetaProducto.jsx'
 import BotonWhatsApp from './components/BotonWhatsApp.jsx'
 
-// URL del backend Spring Boot (GArepasAppV2).
-// Orden de prioridad:
-//   1. window.__API_URL__  → lo inyecta el contenedor al arrancar (config.js)
-//   2. VITE_API_URL        → util para desarrollo local
-//   3. localhost:8080      → por defecto
 const API_URL =
     (typeof window !== 'undefined' && window.__API_URL__) ||
     import.meta.env.VITE_API_URL ||
     'http://localhost:8080'
 
-// La aurora es decorativa: con "reducir movimiento" no se monta.
-// En la paleta de la app respalda como un aliento de brasa sobre la crema.
 const auroraColores = ['#FEF6AA', '#E19C71', '#FED05F']
 
 const listaVariants = {
@@ -32,7 +25,7 @@ const marcaVariants = {
 }
 
 export default function App() {
-    const [estado, setEstado] = useState('cargando') // cargando | listo | error | vacio
+    const [estado, setEstado] = useState('cargando')
     const [productos, setProductos] = useState([])
     const [animar, setAnimar] = useState(
         () => !window.matchMedia('(prefers-reduced-motion: reduce)').matches,
@@ -191,7 +184,6 @@ export default function App() {
                 )}
             </main>
 
-            {/* Barra de pedido fija en móvil: el CTA nunca se pierde. */}
             {estado === 'listo' && (
                 <div className="pedido-barra">
                     <BotonWhatsApp className="boton-wa pedido-barra__boton" />

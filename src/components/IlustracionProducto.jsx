@@ -1,11 +1,3 @@
-/*
- * Ilustración SVG por tipo de producto (reemplazo temporal de fotos).
- *
- * Dibujadas a mano con la paleta crema: sin dependencias de red,
- * nunca se ven rotas. Cuando existan fotos reales, el campo `imagen` del
- * mapa de detalles tendrá prioridad y este componente queda como fallback.
- */
-
 function tipoDe(nombre) {
     const n = nombre.toLowerCase()
     if (n.includes('queso')) return 'arepa-queso'

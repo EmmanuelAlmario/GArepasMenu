@@ -1,25 +1,16 @@
-/* =============================================================
-   GArepasMenu — menu.css
-   Menú digital público: "pizarra de local" con aurora animada.
-   Cliente React desacoplado del sistema administrativo: CSS y
-   tokens propios, sin Bootstrap.
-   ============================================================= */
-
 :root {
     color-scheme: light;
-    /* Paleta de la aplicación: la misma de GArepasAppV2 (tokens.css),
-       para que el menú se sienta parte del mismo producto. */
-    --m-fondo: #F3EEE4;              /* crema del lienzo */
-    --m-superficie: #FFFDF9;         /* tarjetas */
-    --m-linea: #E6DCCB;              /* borde */
+    --m-fondo: #F3EEE4;
+    --m-superficie: #FFFDF9;
+    --m-linea: #E6DCCB;
     --m-linea-fuerte: #CBB9A0;
-    --m-tinta: #2A0F0A;              /* tinta de marca */
-    --m-tinta-suave: #6B5F57;        /* texto secundario */
-    --m-burdeos: #56241C;            /* titulos de la casa */
-    --m-acento: #C0430B;             /* ladrillo: el acento de la app */
+    --m-tinta: #2A0F0A;
+    --m-tinta-suave: #6B5F57;
+    --m-burdeos: #56241C;
+    --m-acento: #C0430B;
     --m-acento-oscuro: #9E3709;
-    --m-naranja: #F67D14;            /* el detalle que abre cada pantalla */
-    --m-gold: #FED05F;               /* oro del arepero */
+    --m-naranja: #F67D14;
+    --m-gold: #FED05F;
     --m-arena: #FEF6AA;
     --m-terracota: #E19C71;
     --m-on-brand: #FDFCF7;
@@ -28,7 +19,6 @@
     --m-fuente-mano: "Caveat", "Segoe Script", cursive;
     --m-fuente-texto: "Inter", system-ui, sans-serif;
 
-    /* Alias con los nombres historicos, para que ninguna regla quede colgada. */
     --m-crema: var(--m-tinta);
     --m-crema-suave: var(--m-tinta-suave);
     --m-oro: var(--m-acento);
@@ -48,7 +38,6 @@ body {
     margin: 0;
     min-height: 100%;
     background-color: var(--m-fondo);
-    /* Lienzo de la app: punteado fino de la marca sobre el lavado calido. */
     background-image:
         radial-gradient(rgba(var(--m-ink-rgb), .06) 1px, transparent 1px),
         radial-gradient(120% 60% at 100% 0%, rgba(254, 208, 95, .16) 0%, rgba(254, 208, 95, 0) 55%);
@@ -56,7 +45,6 @@ body {
     color: var(--m-crema);
     font-family: var(--m-fuente-texto);
     line-height: 1.5;
-    /* Sin lag azul de tap en móvil: los estados hover/focus ya lo cubren. */
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
     -webkit-font-smoothing: antialiased;
@@ -71,21 +59,17 @@ body {
     padding: clamp(1.5rem, 5vw, 4rem) 1rem;
 }
 
-/* ---------- Aurora de fondo (React Bits + ogl) ---------- */
 .aurora-fondo {
     position: fixed;
     inset: 0;
     z-index: 0;
-    /* La aurora asoma desde arriba, como brasa sobre la pizarra. */
     -webkit-mask-image: linear-gradient(to bottom,
         rgba(0, 0, 0, .8), transparent 65%);
     mask-image: linear-gradient(to bottom,
         rgba(0, 0, 0, .8), transparent 65%);
-    /* Aura de respaldo: la paleta manda, la aurora solo acompaña. */
     opacity: .5;
 }
 
-/* ---------- Grano de pizarra (React Bits Noise) ---------- */
 .ruido-fondo {
     position: fixed;
     inset: 0;
@@ -93,8 +77,6 @@ body {
     pointer-events: none;
 }
 
-/* ---------- La carta ---------- */
-/* Minimal: sin panel ni marco; la pagina es la carta. */
 .carta {
     position: relative;
     z-index: 1;
@@ -102,7 +84,6 @@ body {
     padding: 0 0 .5rem;
 }
 
-/* ---------- Marca ---------- */
 .carta__marca {
     position: relative;
     display: grid;
@@ -113,7 +94,6 @@ body {
     border-bottom: 1px solid var(--m-linea);
 }
 
-/* Acento de marca: la barrita naranja que abre cada pantalla en la app. */
 .carta__marca::before {
     content: "";
     width: 2.5rem;
@@ -126,7 +106,6 @@ body {
 .carta__logo {
     width: clamp(5.5rem, 15vw, 7rem);
     height: auto;
-    /* Sombra suave para que el personaje "flote" sobre la pizarra. */
     filter: drop-shadow(0 .35rem .8rem rgba(var(--m-ink-rgb), .18));
     margin-bottom: .75rem;
 }
@@ -139,7 +118,6 @@ body {
     line-height: .95;
     letter-spacing: .05em;
     color: var(--m-burdeos);
-    /* BlurText renderiza flex: el título se mantiene centrado. */
     justify-content: center;
     text-wrap: balance;
 }
@@ -161,7 +139,6 @@ body {
     transform: rotate(-2deg);
 }
 
-/* ---------- Lista y tarjetas de producto ---------- */
 .carta__lista {
     list-style: none;
     margin: 0;
@@ -174,7 +151,6 @@ body {
     position: relative;
 }
 
-/* GlareHover (React Bits) adaptado a tarjeta: transparente y bloque. */
 .tarjeta__marco.glare-hover {
     display: block;
     width: 100%;
@@ -195,7 +171,6 @@ body {
     box-shadow: 0 .25rem .8rem rgba(var(--m-ink-rgb), .07);
 }
 
-/* ---------- Visual: ilustracion + estado ---------- */
 .tarjeta__visual {
     position: relative;
     align-self: center;
@@ -228,7 +203,6 @@ body {
     color: var(--m-tinta-agotado);
 }
 
-/* Agotado: la tarjeta se apaga entera. */
 .tarjeta-item--agotado .tarjeta__ilustracion,
 .tarjeta-item--agotado .tarjeta__visual > svg,
 .tarjeta-item--agotado .tarjeta__nombre,
@@ -237,7 +211,6 @@ body {
     filter: grayscale(.4);
 }
 
-/* ---------- Datos ---------- */
 .tarjeta__datos {
     display: grid;
     gap: .45rem;
@@ -279,7 +252,6 @@ body {
     color: var(--m-crema-suave);
 }
 
-/* Precio protagonista y pedido directo: la fila que convierte. */
 .tarjeta__pie {
     display: flex;
     flex-wrap: wrap;
@@ -338,14 +310,12 @@ body {
     color: var(--m-tinta-agotado);
 }
 
-/* En táctil el destello no aplica (evita el hover pegajoso). */
 @media (hover: none) {
     .tarjeta__marco.glare-hover::before {
         display: none;
     }
 }
 
-/* ---------- CTA de pedido (escritorio) ---------- */
 .carta__pedido-desktop {
     text-align: center;
 }
@@ -357,7 +327,6 @@ body {
     color: var(--m-crema-suave);
 }
 
-/* ---------- Boton grande de WhatsApp ---------- */
 .boton-wa {
     display: inline-flex;
     align-items: center;
@@ -387,7 +356,6 @@ body {
     outline-offset: 2px;
 }
 
-/* ---------- Divisor y pie ---------- */
 .carta__divisor {
     display: flex;
     align-items: center;
@@ -430,8 +398,6 @@ body {
     color: var(--m-crema-suave);
 }
 
-/* ---------- Barra de pedido fija (móvil) ---------- */
-/* En escritorio no existe: allá manda el boton grande de la carta. */
 .pedido-barra {
     display: none;
 }
@@ -459,18 +425,15 @@ body {
         font-size: 1.15rem;
     }
 
-    /* Aire para que la barra no tape el final de la carta ni el pie. */
     #root {
         padding-bottom: 5.25rem;
     }
 
-    /* El CTA grande del centro no se duplica: en móvil manda la barra. */
     .carta__pedido-desktop {
         display: none;
     }
 }
 
-/* ---------- Estados: cargando, error y pizarra vacía ---------- */
 .carta__estado {
     display: grid;
     gap: .35rem;
@@ -512,7 +475,6 @@ body {
     outline-offset: 3px;
 }
 
-/* ---------- Móvil ---------- */
 @media (max-width: 480px) {
     .carta__logo {
         width: clamp(4.75rem, 14vw, 5.5rem);
